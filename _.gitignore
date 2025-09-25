@@ -1,0 +1,44 @@
+# Operating System
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.idea
+.vscode
+*.suo
+*.ntvs
+*.njsproj
+*.sln
+*.bak
+
+# Build artifacts
+build/
+dist/
+*.log
+*.tmp
+*.swp
+
+# Dependencies
+node_modules/
+venv/
+
+# Rust
+target/
+Cargo.lock
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# Frontend
+.next/
+
+# Docker
+*.dockerignore
+
+# Other
+*.DS_Store
+*.env
+
+

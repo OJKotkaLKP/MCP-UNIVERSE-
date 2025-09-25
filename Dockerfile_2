@@ -1,0 +1,37 @@
+# Dockerfile for MCP UNIVERSE Frontend (React)
+
+# Use a Node.js base image for building
+FROM node:20-alpine AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and pnpm-lock.yaml
+COPY package.json pnpm-lock.yaml ./
+
+# Install dependencies using pnpm
+RUN pnpm install --frozen-lockfile
+
+# Copy the rest of the application code
+COPY .
+
+# Build the React application for production
+RUN pnpm run build
+
+# --- Final stage ---
+# Use a lightweight web server to serve the static files
+FROM nginx:stable-alpine
+
+# Copy the built React app from the builder stage
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copy custom nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
+
+
